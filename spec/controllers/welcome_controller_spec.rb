@@ -32,12 +32,12 @@ describe WelcomeController, type: :controller do
   context "warn" do
     render_views
     it "should warn users visiting a staging app" do
-      @request.host = 'master.hacken.in'
+      @request.host = 'hacken-in-master.shellyapp.com'
       FactoryGirl.create(:koeln_region)
       get 'deutschland'
       expect(response.body).to match(/Achtung, das ist unsere Test-Umgebung/)
       get :move_to, region: "koeln"
-      @request.host = 'master.hacken.in'
+      @request.host = 'hacken-in-master.shellyapp.com'
       get 'deutschland'
       expect(response.body).to_not match(/Achtung, das ist unsere Test-Umgebung/)
     end

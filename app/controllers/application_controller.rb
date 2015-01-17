@@ -1,3 +1,4 @@
+# coding: utf-8
 class ApplicationController < ActionController::Base
   include CommentsPathHelper
   include OpengraphHelper
@@ -70,7 +71,7 @@ class ApplicationController < ActionController::Base
   helper_method :get_ical_link_for
 
   def staging_users_should_be_warned
-    session[:region].nil? && request.host == 'master.hacken.in'
+    session[:region].nil? && request.host == 'hacken-in-master.shellyapp.com'
   end
   helper_method :staging_users_should_be_warned
 
