@@ -1,8 +1,8 @@
 ---
 de:
   active_admin:
-    dashboard: MISSINGTRANSLATION
-    view: MISSINGTRANSLATION
+    dashboard: Dashboard
+    view: Anzeigen
     statistics:
       events_by_category: Veranstaltungsreihen insgesamt nach Kategorien
       ical_exports: iCal Exports pro Tag
@@ -230,6 +230,10 @@ de:
       with_other_service: "…oder mit einem dieser Services"
       with_user_data: Mit Benutzerdaten
   single_events:
+    push:
+      confirmation: Du nimmst jetzt teil.
+    delete:
+      confirmation: Du nimmst nicht mehr teil.
     show:
       participate: Und ich!
       unparticipate: Doch nich.
@@ -265,3 +269,9 @@ de:
     next_label: Nächste &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Zurück"
+  statistics:
+    index:
+      headline: "Statistiken"
+    show:
+      headline: "Statistiken für %{region}"
+      weekdays: "Wochentage"

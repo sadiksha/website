@@ -1,8 +1,8 @@
 ---
 en:
   active_admin:
-    dashboard: MISSINGTRANSLATION
-    view: MISSINGTRANSLATION
+    dashboard: Dashboard
+    view: View
     statistics:
       events_by_category: Events by category
       ical_exports: iCal Exports per Day
@@ -234,6 +234,10 @@ en:
       participate: And me!
       unparticipate: Not yet.
   subscriptions:
+    push:
+      confirmation: You now participate.
+    delete:
+      confirmation: You no longer participate.
     index:
       error: Entry not found.
   suggestions:
@@ -265,3 +269,9 @@ en:
     next_label: Next &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Back"
+  statistics:
+    index:
+      headline: "Statistics"
+    show:
+      headline: "Statistics for %{region}"
+      weekdays: "Weekdays"
