@@ -1,5 +1,4 @@
 class Region < ActiveRecord::Base
-  validates_uniqueness_of :slug
   validates_uniqueness_of :name
 
   has_many :region_organizers
@@ -8,6 +7,6 @@ class Region < ActiveRecord::Base
   scope :active, -> { where(active: true) }
 
   def to_param
-    "#{self.id}-#{self.slug}"
+    "#{self.id}-#{self.region_slug.slug}"
   end
 end
