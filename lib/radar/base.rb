@@ -19,13 +19,14 @@ module Radar
         @radar_setting.last_result = "OK"
       rescue => e
         @radar_setting.last_result = e.message[0..254]
+        Bugsnag.notify e
       end
       @radar_setting.last_processed = start_time
       @radar_setting.save
     end
 
     def update_event(event)
-      entry = @radar_setting.entries.find_or_create_by(entry_id: event[:id])
+      entry = @radar_setting.entries.find_or_create_by(entry_id: event[:id].to_s)
       if (entry.entry_date != event[:time] ||
           entry.previous_confirmed_content != event.except(:id, :time))
 
