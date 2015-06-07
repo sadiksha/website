@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
   end
 
   def move_to
-    region = RegionSlug.find_by_slug(params[:region]).slug
+    region = RegionSlug.find_by_slug(params[:region]).try(:slug)
 
     if region
       session[:region] = region

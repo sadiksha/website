@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    # Rais error if not signed in or user not allowed to see the dashboard
+    # Raise error if not signed in or user not allowed to see the dashboard
     raise SecurityError and return if active_admin_user.nil?
     authenticate_user!
   end
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_region
-    @current_region ||= RegionSlug.find_by_slug(params[:region]).try(:region) || Region.find_by_id(params[:region])
+    @current_region ||= RegionSlug.find_by_slug(params[:region]).try(:slug) || RegionSlug.find_by_id(params[:region]).try(:slug)
   end
   helper_method :current_region
 

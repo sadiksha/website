@@ -4,6 +4,7 @@ describe CalendarsController, type: :controller do
   let(:today) { double('Date') }
   let(:region_name) { 'koeln' }
   let(:region) { double('Region') }
+  let(:region_slug) { double('RegionSlug') }
   let(:start_selector) { double('StartSelector') }
   let(:calendar) { double('Calendar') }
 
@@ -11,6 +12,10 @@ describe CalendarsController, type: :controller do
     allow(Date).to receive(:today).and_return(today)
     allow(Region).to receive(:find_by_slug).with(region_name).and_return(region)
     allow(Region).to receive(:find_by_slug).with(nil).and_return(nil)
+    allow(RegionSlug).to receive(:find_by_slug).with(region_name).and_return(region_slug)
+    allow(region_slug).to receive(:slug).and_return(region_name)
+    allow(region_slug).to receive(:region).and_return(region)
+    allow(RegionSlug).to receive(:find_by_slug).with(nil).and_return(nil)
     allow(Calendar).to receive(:new)
   end
 
@@ -41,6 +46,7 @@ describe CalendarsController, type: :controller do
     it 'should initialize a calendar with the user' do
       expect(Calendar).to receive(:new).with(today, region, user).and_return(calendar)
       get :show, region: region_name
+      byebug
       expect(assigns[:calendar]).to be calendar
     end
   end

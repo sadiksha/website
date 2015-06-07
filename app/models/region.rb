@@ -12,4 +12,8 @@ class Region < ActiveRecord::Base
   def to_param
     "#{self.id}-#{self.region_slug.slug}"
   end
+
+  def self.find_by_slug(slug)
+    RegionSlug.find_by_slug(slug).try(:region)
+  end
 end
