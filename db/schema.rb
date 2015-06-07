@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229081622) do
+ActiveRecord::Schema.define(version: 20150513210559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "ahoy_events", id: :uuid, force: true do |t|
+  create_table "ahoy_events", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "visit_id"
     t.integer  "user_id"
     t.string   "name"
@@ -129,18 +130,27 @@ ActiveRecord::Schema.define(version: 20141229081622) do
   add_index "region_organizers", ["region_id"], name: "index_region_organizers_on_region_id", using: :btree
   add_index "region_organizers", ["user_id"], name: "index_region_organizers_on_user_id", using: :btree
 
+  create_table "region_slugs", force: true do |t|
+    t.string   "slug",       null: false
+    t.integer  "region_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "region_slugs", ["region_id"], name: "index_region_slugs_on_region_id", using: :btree
+
   create_table "regions", force: true do |t|
     t.string   "name"
-    t.string   "slug"
     t.float    "latitude"
     t.float    "longitude"
-    t.float    "perimeter",  default: 20.0
+    t.float    "perimeter",      default: 20.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active"
+    t.integer  "region_slug_id"
   end
 
-  add_index "regions", ["slug"], name: "index_regions_on_slug", using: :btree
+  add_index "regions", ["region_slug_id"], name: "index_regions_on_region_slug_id", using: :btree
 
   create_table "single_event_external_users", force: true do |t|
     t.integer  "single_event_id"
@@ -266,7 +276,7 @@ ActiveRecord::Schema.define(version: 20141229081622) do
   add_index "venues", ["latitude", "longitude"], name: "index_venues_on_latitude_and_longitude", using: :btree
   add_index "venues", ["region_id"], name: "index_venues_on_region_id", using: :btree
 
-  create_table "visits", id: :uuid, force: true do |t|
+  create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "visitor_id"
     t.string   "ip"
     t.text     "user_agent"
