@@ -46,7 +46,6 @@ describe CalendarsController, type: :controller do
     it 'should initialize a calendar with the user' do
       expect(Calendar).to receive(:new).with(today, region, user).and_return(calendar)
       get :show, region: region_name
-      byebug
       expect(assigns[:calendar]).to be calendar
     end
   end
