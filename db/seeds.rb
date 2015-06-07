@@ -15,12 +15,20 @@ def seed(model_class, seeds)
   ActiveRecord::Base.connection.reset_pk_sequence!(model_class.table_name)
 end
 
+seed(RegionSlug, [
+  {id: 1, slug: "global"},
+  {id: 2, slug: "koeln"},
+  {id: 3, slug: "berlin"},
+  {id: 4, slug: "muenchen"},
+  {id: 5, slug: "hamburg"}
+])
+
 seed(Region, [
-  {id: 1, name: "Global",  slug: "global",   latitude: nil,     longitude: nil,     perimeter: nil,  active: true},
-  {id: 2, name: "Köln",    slug: "koeln",    latitude: 50.946,  longitude: 6.95889, perimeter: 20.0, active: true},
-  {id: 3, name: "Berlin",  slug: "berlin",   latitude: 52.5186, longitude: 13.4081, perimeter: 20.0, active: true},
-  {id: 4, name: "München", slug: "muenchen", latitude: 48.1368, longitude: 11.5781, perimeter: 20.0, active: true},
-  {id: 5, name: "Hamburg", slug: "hamburg",  latitude: 53.5653, longitude: 10.0014, perimeter: 20.0, active: false}
+  {id: 1, name: "Global",  region_slug_id: 1, latitude: nil,     longitude: nil,     perimeter: nil,  active: true},
+  {id: 2, name: "Köln",    region_slug_id: 2, latitude: 50.946,  longitude: 6.95889, perimeter: 20.0, active: true},
+  {id: 3, name: "Berlin",  region_slug_id: 3, latitude: 52.5186, longitude: 13.4081, perimeter: 20.0, active: true},
+  {id: 4, name: "München", region_slug_id: 4, latitude: 48.1368, longitude: 11.5781, perimeter: 20.0, active: true},
+  {id: 5, name: "Hamburg", region_slug_id: 5, latitude: 53.5653, longitude: 10.0014, perimeter: 20.0, active: false}
 ])
 
 seed(Category, [
