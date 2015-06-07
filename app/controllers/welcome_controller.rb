@@ -10,11 +10,11 @@ class WelcomeController < ApplicationController
   end
 
   def move_to
-    region = Region.find_by_slug(params[:region])
+    region = RegionSlug.find_by_slug(params[:region]).slug
 
     if region
-      session[:region] = region.slug
-      redirect_to region_url(region: region.slug)
+      session[:region] = region
+      redirect_to region_url(region: region)
     else
       redirect_to "/deutschland"
     end
