@@ -16,7 +16,10 @@ server "dubhe.uberspace.de", user: fetch(:user), roles: [:app, :db]
 namespace :deploy do
   task :restart do
     on roles(:app) do
-      execute "svc -h svc -h ~/service/hacken-in-#{fetch(:stage)}"
+      within release_path do
+        execute "kill -USR2 $(cat #{release_path}/tmp/pids/unicorn.pid)"
+        execute "kill -WINCH $(cat #{release_path}/tmp/pids/unicorn.pid.oldbin)"
+      end
     end
   end
 

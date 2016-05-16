@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_region
-    @current_region ||= Region.find_by_slug(params[:region]) || Region.find_by_id(params[:region])
+    @current_region ||= RegionSlug.find_by_slug(params[:region]).try(:region) || Region.find_by_id(params[:region])
   end
   helper_method :current_region
 
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   helper_method :get_ical_link_for
 
   def staging_users_should_be_warned
-    session[:region].nil? && request.host == 'master.hacken.in'
+    session[:region].nil? && Rails.application.config.x.release_stage == :master
   end
   helper_method :staging_users_should_be_warned
 
